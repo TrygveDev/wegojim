@@ -1,0 +1,23 @@
+.workout-item {
+	width: 55%;
+	height: 8vh;
+	background-color: #424549;
+	color: white;
+	border-radius: 12px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 10% 0 10%;
+}
+
+.checked {
+	height: 5vh;
+	background-color: var(--sub-alt-color);
+	color: var(--text-color);
+	text-decoration: line-through;
+}
+.checked p {
+	color: var(--text-color);
+}
