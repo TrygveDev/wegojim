@@ -1,0 +1,15 @@
+.content-navbar {
+	height: 10vh;
+	width: 100%;
+	background-color: var(--sub-alt-color);
+
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+.icon {
+	color: gray;
+}
+.active {
+	color: white;
+}

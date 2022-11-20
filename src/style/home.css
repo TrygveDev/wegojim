@@ -1,0 +1,10 @@
+.content-mid h1 {
+	margin-top: 55%;
+	font-size: 2em;
+	color: var(--text-color);
+}
+
+.content-mid span {
+	font-size: 0.65em;
+	color: var(--main-color);
+}

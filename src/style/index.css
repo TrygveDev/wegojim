@@ -1,0 +1,98 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow: hidden;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+
+:root {
+	--bg-color: #323437;
+	--main-color: #e2b714;
+	--caret-color: #e2b714;
+	--sub-color: #646669;
+	--sub-alt-color: #2c2e31;
+	--text-color: #d1d0c5;
+	--error-color: #ca4754;
+	--error-extra-color: #7e2a33;
+	--colorful-error-color: #ca4754;
+	--colorful-error-extra-color: #7e2a33;
+
+	--roundness: 0.5rem;
+	--font: "Roboto Mono", "Vazirmatn";
+	font-weight: 400;
+	scroll-padding-top: 2rem;
+	user-select: none;
+	background-color: #282b2c;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.container {
+	text-align: center;
+	font-family: Arial;
+}
+
+.verNumb {
+	position: fixed;
+	color: white;
+	padding: 1em;
+}
+
+.content {
+	min-height: 100vh;
+	background-color: var(--bg-color);
+	display: flex;
+	flex-direction: column;
+}
+
+.content-mid {
+	height: 90vh;
+	width: 100%;
+}
+
+.desktopNotice {
+	display: none;
+}
+
+@media only screen and (min-width: 500px) {
+	.content {
+		display: none;
+	}
+	.desktopNotice {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: 100vw;
+		height: 100vh;
+		color: white;
+	}
+	.desktopNotice ol p {
+		font-size: 1.25em;
+		text-align: center;
+		font-weight: bold;
+	}
+	.desktopNotice ol {
+		color: var(--sub-color);
+		width: 40%;
+		text-align: left;
+	}
+	.desktopNotice ol li {
+		font-size: 0.9em;
+	}
+	.desktopNoticeLists {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+	}
+}

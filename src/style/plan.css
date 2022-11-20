@@ -1,0 +1,14 @@
+.plan {
+	width: 75%;
+	height: 8vh;
+	background-color: #424549;
+	color: white;
+	border-radius: 12px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.plan-title {
+	font-size: 1.25rem;
+}
