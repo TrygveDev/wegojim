@@ -7,6 +7,7 @@ import DesktopNotice from "../components/DesktopNotice";
 import VerNumb from "../components/VerNumb";
 
 function Home() {
+
   let nav = useNavigate();
   const swipeHandler = useSwipeable({
     onSwiped: (e) => {
@@ -14,10 +15,11 @@ function Home() {
         nav("/workout");
       }
       if (e.dir === "Left") {
-        nav("/logg");
+        nav("/progress");
       }
     }
   });
+
   return (
     <div {...swipeHandler} className="container">
       <VerNumb />

@@ -1,7 +1,7 @@
 function VerNumb() {
 
     return (
-        <div className="verNumb">v2.0</div>
+        <div className="verNumb">v2.1</div>
     );
 }
 

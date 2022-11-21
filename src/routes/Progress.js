@@ -1,11 +1,12 @@
-import "../style/index.css";
+import "../style/progress.css";
 import Navbar from "../components/Navbar";
 import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import DesktopNotice from "../components/DesktopNotice";
 import VerNumb from "../components/VerNumb";
+import Charts from "../components/Charts";
 
-function Home() {
+function Progress() {
     let nav = useNavigate();
     const swipeHandler = useSwipeable({
         onSwiped: (e) => {
@@ -20,14 +21,16 @@ function Home() {
             <div className="content">
                 <div className="content-mid">
                     <h1>
-                        Logg
+                        Progress
                     </h1>
+                    <h7>Charts are just placeholders during development.</h7>
+                    <Charts />
                 </div>
-                <Navbar active="Logg" />
+                <Navbar active="Progress" />
             </div>
             <DesktopNotice />
         </div>
     );
 }
 
-export default Home;
+export default Progress;
