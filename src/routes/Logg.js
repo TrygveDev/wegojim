@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import DesktopNotice from "../components/DesktopNotice";
+import VerNumb from "../components/VerNumb";
 
 function Home() {
     let nav = useNavigate();
@@ -15,7 +16,7 @@ function Home() {
     });
     return (
         <div {...swipeHandler} className="container">
-            <div className="verNumb">v1.0</div>
+            <VerNumb />
             <div className="content">
                 <div className="content-mid">
                     <h1>

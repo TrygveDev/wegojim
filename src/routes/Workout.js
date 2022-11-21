@@ -5,6 +5,7 @@ import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import DesktopNotice from "../components/DesktopNotice";
 import Plan from "../components/Plan";
+import VerNumb from "../components/VerNumb";
 
 function Workout() {
     let nav = useNavigate();
@@ -17,17 +18,17 @@ function Workout() {
     });
     return (
         <div {...swipeHandler} className="container">
-            <div className="verNumb">v1.0</div>
+            <VerNumb />
             <div className="content">
                 <div className="content-mid">
                     <h1>
                         Workout
                     </h1>
                     <div className="mid-workouts">
-                        <Plan title="Monday - Chest & Tricep" />
-                        <Plan title="Tuesday - Back & Bicep" />
-                        <Plan title="Thursday - Legs & Abs" />
-                        <Plan title="Friday - Shoulders" />
+                        <Plan title="Monday - Chest & Tricep" keyUid="monday" />
+                        <Plan title="Tuesday - Back & Bicep" keyUid="tuesday" />
+                        <Plan title="Thursday - Legs & Abs" keyUid="thursday" />
+                        <Plan title="Friday - Shoulders" keyUid="friday" />
                     </div>
                 </div>
                 <Navbar active="Workout" />

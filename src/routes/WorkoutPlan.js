@@ -3,14 +3,23 @@ import "../style/workoutplan.css"
 import Navbar from "../components/Navbar";
 import DesktopNotice from "../components/DesktopNotice";
 import Workouts from "../components/Workouts";
+import { useLocation } from "react-router-dom";
+import VerNumb from "../components/VerNumb";
+
 
 function WorkoutPlan() {
+    const location = useLocation();
+    const workoutPlan = location.state.workoutplan;
+    const exercises = workoutPlan.exercises;
+    const exercisesComponents = Object.values(exercises).map(workout =>
+        <Workouts title={workout.title} sets={workout.sets} reps={workout.reps} checked={false} key={Object.values(exercises).indexOf(workout)} />
+    );
     return (
         <div className="container">
-            <div className="verNumb">v1.0</div>
+            <VerNumb />
             <div className="content">
                 <div className="content-mid">
-                    <h1>Monday - Chest & Back</h1>
+                    <h1>{workoutPlan.title}</h1>
                     <div className="mid-subtitle">
                         <ul>
                             <li>Exercise</li>
@@ -20,9 +29,7 @@ function WorkoutPlan() {
                     </div>
                     {/* For Each */}
                     <div className="mid-workouts">
-                        <Workouts title="Bench Press" sets="3" reps="8-12" checked={true} />
-                        <Workouts title="Bench Press" sets="3" reps="8-12" checked={false} />
-                        <Workouts title="Bench Press" sets="3" reps="8-12" checked={false} />
+                        {exercisesComponents}
                     </div>
 
                 </div>

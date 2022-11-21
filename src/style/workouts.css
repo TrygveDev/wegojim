@@ -1,5 +1,5 @@
 .workout-item {
-	width: 55%;
+	width: 65%;
 	height: 8vh;
 	background-color: #424549;
 	color: white;
@@ -8,16 +8,30 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0 10% 0 10%;
+	/* justify-content: space-evenly; */
+	padding: 0 5% 0 5%;
 }
-
 .checked {
-	height: 5vh;
+	height: 3vh;
 	background-color: var(--sub-alt-color);
 	color: var(--text-color);
 	text-decoration: line-through;
 }
-.checked p {
-	color: var(--text-color);
+.checked .item-title {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* .item-title .item-sets .item-reps; */
+
+.item-title {
+	text-align: left;
+	width: 70%;
+}
+.item-sets {
+	width: 10%;
+}
+.item-reps {
+	width: 20%;
 }
