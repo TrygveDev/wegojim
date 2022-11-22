@@ -66,6 +66,10 @@ function Charts() {
             <Line options={options} data={benchdata} />
             <h3>Bicep Curl (kg)</h3>
             <Line options={options} data={curldata} />
+            <h3>Bicep Curl (kg)</h3>
+            <Line options={options} data={curldata} />
+            <h3>Bicep Curl (kg)</h3>
+            <Line options={options} data={curldata} />
         </div>
     );
 }

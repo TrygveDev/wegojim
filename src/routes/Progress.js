@@ -23,7 +23,7 @@ function Progress() {
                     <h1>
                         Progress
                     </h1>
-                    <h7>Charts are just placeholders during development.</h7>
+                    <h6>Charts are just placeholders during development.</h6>
                     <Charts />
                 </div>
                 <Navbar active="Progress" />

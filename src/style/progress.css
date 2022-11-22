@@ -1,4 +1,7 @@
-h7 {
-	color: white;
+h6 {
+	color: gray;
 	font-style: italic;
+}
+.content-mid {
+	overflow-y: scroll;
 }

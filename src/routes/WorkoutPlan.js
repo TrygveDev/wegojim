@@ -5,6 +5,7 @@ import DesktopNotice from "../components/DesktopNotice";
 import Workouts from "../components/Workouts";
 import { useLocation } from "react-router-dom";
 import VerNumb from "../components/VerNumb";
+import Modal from "../components/Modal";
 
 
 function WorkoutPlan() {
@@ -17,6 +18,7 @@ function WorkoutPlan() {
     return (
         <div className="container">
             <VerNumb />
+            <Modal />
             <div className="content">
                 <div className="content-mid">
                     <h1>{workoutPlan.title}</h1>
@@ -31,7 +33,6 @@ function WorkoutPlan() {
                     <div className="mid-workouts">
                         {exercisesComponents}
                     </div>
-
                 </div>
                 <Navbar active="Workout" />
             </div>

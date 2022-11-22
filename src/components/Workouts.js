@@ -5,6 +5,7 @@ function Workouts(props) {
     const [checked, setChecked] = useState(false);
     function handleclick() {
         checked ? setChecked(false) : setChecked(true);
+        // Open modal
     }
     return (
         <div className={checked ? "workout-item checked" : "workout-item"} onClick={handleclick}>
