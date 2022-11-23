@@ -34,6 +34,12 @@
 }
 .modal p {
 	font-size: 1.3em;
+	margin: 0;
+	margin-top: 1em;
+}
+.modal h6 {
+	margin: 0;
+	margin-bottom: 1em;
 }
 .modal button:nth-child(1) {
 	width: 40%;

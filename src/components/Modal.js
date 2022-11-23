@@ -1,19 +1,30 @@
-import { useState } from "react";
 import "../style/modal.css";
 
-function Modal() {
-    const [visible, setVisible] = useState(false);
-    function toggleModal() {
-        visible ? setVisible(false) : setVisible(true);
+function Modal(props) {
+    function hideModal() {
+        var inputValue = document.getElementById("progressInput").value
+        props.setModal(false)
+        console.log(inputValue)
+        // Send value "DONT TRACK"
+        document.getElementById("progressInput").value = ""
     }
+    function submitModal() {
+        var inputValue = document.getElementById("progressInput").value
+        props.setModal(false)
+        console.log(inputValue)
+        // Send value
+        document.getElementById("progressInput").value = ""
+    }
+
     return (
-        <div className={visible ? "modal-view show" : "modal-view"}>
+        <div className={props.modalVisible ? "modal-view show" : "modal-view"}>
             <div className="modal">
                 <p>What weight did you use?</p>
-                <input type="number" name="weight" placeholder="20..."></input>
+                <h6>Workout progress can be seen in the progress tab.</h6>
+                <input id="progressInput" type="number" name="weight" placeholder="20..."></input>
                 <div className="modal-btn">
-                    <button onClick={toggleModal}>Cancel</button>
-                    <button>Submit</button>
+                    <button onClick={hideModal}>Don't Track</button>
+                    <button onClick={submitModal}>Submit</button>
                 </div>
             </div>
         </div>

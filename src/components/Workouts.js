@@ -4,8 +4,15 @@ import "../style/workouts.css";
 function Workouts(props) {
     const [checked, setChecked] = useState(false);
     function handleclick() {
-        checked ? setChecked(false) : setChecked(true);
-        // Open modal
+        if (checked) {
+            setChecked(false)
+            // TODO: Remove data from cookie
+        } else {
+            props.setModal(true);
+            setChecked(true)
+            // Save data to cookie
+        }
+
     }
     return (
         <div className={checked ? "workout-item checked" : "workout-item"} onClick={handleclick}>
