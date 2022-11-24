@@ -7,25 +7,89 @@ import { useLocation } from "react-router-dom";
 import VerNumb from "../components/VerNumb";
 import Modal from "../components/Modal";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 
 function WorkoutPlan() {
-    const [modalVisible, setModalVisible] = useState(false);
-    function setModal(boolean) {
-        setModalVisible(boolean);
-    }
-
+    let localData = null;
     const location = useLocation();
     const workoutPlan = location.state.workoutplan;
+    console.log(location.state)
     const exercises = workoutPlan.exercises;
-    const exercisesComponents = Object.values(exercises).map(workout =>
-        <Workouts title={workout.title} sets={workout.sets} reps={workout.reps} checked={false} key={Object.values(exercises).indexOf(workout)} modalVisible={modalVisible} setModal={setModal} />
+    let workoutDataFromState;
+    let workoutData;
+    if (Cookies.get(workoutPlan.title) != null) {
+        localData = JSON.parse(Cookies.get("localWorkoutData"));
+        // Create list from local data not location
+        workoutData = Object.values(localData).map((exercise, index) => {
+            const newData = {
+                reps: exercise.props.reps,
+                sets: exercise.props.sets,
+                title: exercise.props.title,
+                pWeight: exercise.props.pWeight,
+                cWeight: exercise.props.cWeight,
+                checked: exercise.props.checked,
+                index: index
+            }
+            return newData
+        })
+    } else {
+        // create data from location
+        workoutDataFromState = {
+            datenow: {
+                title: workoutPlan.title,
+                exercises: exercises
+            }
+        }
+        workoutData = Object.values(workoutDataFromState.datenow.exercises).map((exercise, index) => {
+            const newData = {
+                reps: exercise.reps,
+                sets: exercise.sets,
+                title: exercise.title,
+                pWeight: "",
+                cWeight: "",
+                index: index
+            }
+            return newData
+        })
+    }
+
+
+    const [modalProps, setModalProps] = useState(false);
+
+
+    function setModal(boolean, index) {
+        setModalProps([boolean, index]);
+    }
+
+
+    function setCWeight(index, number) {
+        console.log(index)
+        if (workoutData[index].cWeight === null || workoutData[index].cWeight === "") {
+            workoutData[index].cWeight = number
+        } else {
+            workoutData[index].pWeight = workoutData[index].cWeight
+            workoutData[index].cWeight = number
+        }
+        workoutData[index].checked = true
+        console.log(workoutData)
+        let exercisesComponentsFromData = Object.values(workoutData).map((workout, index) =>
+            <Workouts title={workout.title} cWeight={workout.cWeight} pWeight={workout.pWeight} sets={workout.sets} reps={workout.reps} checked={workout.checked} index={workout.index} key={index} modalProps={modalProps} setModal={setModal} />
+        );
+        setExercisesComponents(exercisesComponentsFromData)
+        Cookies.set(workoutPlan.title, JSON.stringify(exercisesComponentsFromData))
+    }
+
+
+    let exercisesComponentsFromData = Object.values(workoutData).map((workout, index) =>
+        <Workouts title={workout.title} cWeight={workout.cWeight} pWeight={workout.cWeight} sets={workout.sets} reps={workout.reps} checked={workout.checked} index={workout.index} key={index} modalProps={modalProps} setModal={setModal} />
     );
+    const [exercisesComponents, setExercisesComponents] = useState(exercisesComponentsFromData);
 
     return (
         <div className="container">
             <VerNumb />
-            <Modal modalVisible={modalVisible} setModal={setModal} />
+            <Modal modalProps={modalProps} setModal={setModal} setCWeight={setCWeight} />
             <div className="content">
                 <div className="content-mid">
                     <h1>{workoutPlan.title}</h1>
