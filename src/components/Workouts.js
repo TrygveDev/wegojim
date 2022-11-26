@@ -9,6 +9,7 @@ function Workouts(props) {
             // TODO: Remove data from cookie
         } else if (!checked) {
             props.setModal(true, props.index);
+            console.log(props.index)
             setChecked(true)
             // Save data to cookie
         }

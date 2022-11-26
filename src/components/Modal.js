@@ -4,7 +4,6 @@ import "../style/modal.css";
 function Modal(props) {
     function hideModal() {
         props.setModal(false, "")
-        props.setCWeight(0, "")
         document.getElementById("progressInput").value = ""
     }
     function submitModal() {
