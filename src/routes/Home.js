@@ -29,6 +29,23 @@ function Home() {
             WeGoJim💪
           </h1>
           <Quote />
+          <div className="mid-patchnotes">
+            <h3>PATCH NOTES</h3>
+
+            <p>v3.0</p>
+            <ul>
+              <li>Added:</li>
+              <li>Workout information saved in seesion cookies.</li>
+              <li>You can now go to another tab and the workout state will be saved.</li>
+            </ul>
+
+            <p>v2.0</p>
+            <ul>
+              <li>Added:</li>
+              <li>Workouts created on single page from workout plan selection.</li>
+            </ul>
+          </div>
+
         </div>
         <Navbar active="Home" />
       </div>

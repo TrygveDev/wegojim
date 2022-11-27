@@ -8,3 +8,26 @@
 	font-size: 0.65em;
 	color: var(--main-color);
 }
+
+.mid-patchnotes {
+	margin-top: 20%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: gray;
+}
+.mid-patchnotes p {
+	margin: 0;
+	margin-bottom: -0.5em;
+}
+.mid-patchnotes ul {
+	width: 70%;
+	font-size: 0.8em;
+}
+.mid-patchnotes ul li:nth-child(1) {
+	list-style: none;
+	color: var(--text-color);
+	text-align: left;
+}
