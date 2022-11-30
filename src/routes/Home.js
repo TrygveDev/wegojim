@@ -1,53 +1,29 @@
 import "../style/home.css";
-import Navbar from "../components/Navbar";
-import Quote from "../components/Quote";
-import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import DesktopNotice from "../components/DesktopNotice";
-import VerNumb from "../components/VerNumb";
 
 function Home() {
 
   let nav = useNavigate();
-  const swipeHandler = useSwipeable({
-    onSwiped: (e) => {
-      if (e.dir === "Right") {
-        nav("/workout");
-      }
-      if (e.dir === "Left") {
-        nav("/progress");
-      }
-    }
-  });
+  function navigate(destination) {
+    nav(destination);
+  }
 
   return (
-    <div {...swipeHandler} className="container">
-      <VerNumb />
+    <div className="container">
       <div className="content">
         <div className="content-mid">
-          <h1>
-            WeGoJim💪
-          </h1>
-          <Quote />
-          <div className="mid-patchnotes">
-            <h3>PATCH NOTES</h3>
-
-            <p>v3.0</p>
-            <ul>
-              <li>Added:</li>
-              <li>Workout information saved in seesion cookies.</li>
-              <li>You can now go to another tab and the workout state will be saved.</li>
-            </ul>
-
-            <p>v2.0</p>
-            <ul>
-              <li>Added:</li>
-              <li>Workouts created on single page from workout plan selection.</li>
-            </ul>
+          <div className="mid-header">
+            <h1><span>WE</span>GO<span>JIM</span></h1>
           </div>
-
+          <div className="mid-navboxes">
+            <div className="navboxes-workout" onClick={() => navigate("/workout")}>WORKOUT</div>
+            <div className="navboxes-progress" onClick={() => navigate("/progress")}>PROGRESS</div>
+            <div className="navboxes-prevworkouts" onClick={() => navigate("/prevworkouts")}>PREVIOUS WORKOUTS</div>
+          </div>
+          <div className="mid-subtitle">"Look in the mirror that's your competition"</div>
+          <div className="mid-vernumb">v4.0</div>
         </div>
-        <Navbar active="Home" />
       </div>
       <DesktopNotice />
     </div>

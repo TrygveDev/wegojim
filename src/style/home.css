@@ -1,33 +1,102 @@
-.content-mid h1 {
-	margin-top: 55%;
-	font-size: 2em;
-	color: var(--text-color);
+.content {
+	min-height: 100vh;
+	background-color: var(--bg-color);
+	display: flex;
+	flex-direction: column;
 }
 
-.content-mid span {
-	font-size: 0.65em;
-	color: var(--main-color);
-}
-
-.mid-patchnotes {
-	margin-top: 20%;
+.content-mid {
+	padding-top: 15vh;
+	height: 100vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.mid-header h1 {
+	color: #fff;
+	font-size: 3rem;
+	text-shadow: 3px 3px #000;
+}
+.mid-header h1 span {
+	color: #fff;
+	font-size: 2rem;
+	text-shadow: 3px 3px #000;
+}
+
+.mid-navboxes {
+	width: 90%;
+	height: 40%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: 10%;
+}
+
+.navboxes-workout {
+	width: 100%;
+	height: 150px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+		url(../img/workouts.png);
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	border-radius: 24px;
+	background-position: center;
+	background-size: cover;
+
+	display: flex;
+	align-items: center;
 	justify-content: center;
+	color: white;
+	font-size: 2em;
+	font-weight: 700;
+	letter-spacing: 0.25em;
+}
+
+.navboxes-progress {
+	width: 45%;
+	height: 150px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+		url(../img/progress.png);
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	border-radius: 24px;
+	background-position: left;
+	background-size: cover;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 1em;
+	font-weight: 700;
+	letter-spacing: 0.25em;
+}
+.navboxes-prevworkouts {
+	width: 45%;
+	height: 150px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+		url(../img/previousworkouts.png);
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	border-radius: 24px;
+	background-position: 45% 70%;
+	background-size: 500%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 1em;
+	font-weight: 700;
+	letter-spacing: 0.25em;
+}
+
+.mid-subtitle {
+	padding-top: 22vh;
+}
+.mid-subtitle,
+.mid-vernumb {
+	text-align: center;
 	color: gray;
-}
-.mid-patchnotes p {
-	margin: 0;
-	margin-bottom: -0.5em;
-}
-.mid-patchnotes ul {
-	width: 70%;
-	font-size: 0.8em;
-}
-.mid-patchnotes ul li:nth-child(1) {
-	list-style: none;
-	color: var(--text-color);
-	text-align: left;
+	font-size: 0.9em;
+	font-style: italic;
 }

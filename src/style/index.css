@@ -14,23 +14,17 @@ code {
 }
 
 :root {
-	--bg-color: #323437;
-	--main-color: #e2b714;
-	--caret-color: #e2b714;
-	--sub-color: #646669;
-	--sub-alt-color: #2c2e31;
+	--bg-color: #242728;
+	--sub-color: #2b3135;
+	--dark-color: #1d1f21;
 	--text-color: #d1d0c5;
-	--error-color: #ca4754;
-	--error-extra-color: #7e2a33;
-	--colorful-error-color: #ca4754;
-	--colorful-error-extra-color: #7e2a33;
 
 	--roundness: 0.5rem;
 	--font: "Roboto Mono", "Vazirmatn";
 	font-weight: 400;
-	scroll-padding-top: 2rem;
 	user-select: none;
-	background-color: #282b2c;
+	background-color: var(--bg-color);
+	font-family: var(--font);
 }
 
 ::-webkit-scrollbar {
@@ -39,7 +33,6 @@ code {
 
 .container {
 	text-align: center;
-	font-family: Arial;
 }
 
 .verNumb {
@@ -56,7 +49,7 @@ code {
 }
 
 .content-mid {
-	height: 90vh;
+	height: 100vh;
 	width: 100%;
 }
 
