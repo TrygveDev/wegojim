@@ -35,12 +35,6 @@ code {
 	text-align: center;
 }
 
-.verNumb {
-	position: fixed;
-	color: white;
-	padding: 1em;
-}
-
 .content {
 	min-height: 100vh;
 	background-color: var(--bg-color);
@@ -88,4 +82,8 @@ code {
 		width: 100%;
 		justify-content: center;
 	}
+}
+
+.hidden {
+	display: none;
 }

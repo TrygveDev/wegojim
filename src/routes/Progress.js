@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import DesktopNotice from "../components/DesktopNotice";
-import VerNumb from "../components/VerNumb";
 import Charts from "../components/Charts";
 
 function Progress() {
@@ -17,7 +16,6 @@ function Progress() {
     });
     return (
         <div {...swipeHandler} className="container">
-            <VerNumb />
             <div className="content">
                 <div className="content-mid">
                     <h1>

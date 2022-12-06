@@ -1,8 +1,7 @@
 import "../style/plan.css";
-import { useNavigate } from "react-router-dom";
+import Workouts from "./Workouts";
 
 function Plan(props) {
-    let nav = useNavigate();
 
     function fetchFromDb(uid) {
         const db = {
@@ -176,17 +175,38 @@ function Plan(props) {
         return db[uid]
     }
 
-    function handleClick() {
-        nav("/workoutplan", {
-            state: {
-                workoutplan: fetchFromDb(props.keyUid)
-            }
-        });
-    }
+    // CREATE WORKOUT
+    const plan = fetchFromDb(props.plan)
+    let workoutData = Object.entries(plan.exercises).map((ex, index) => {
+        const newData = {
+            reps: ex[1].reps,
+            sets: ex[1].sets,
+            title: ex[1].title,
+            pWeight: "",
+            cWeight: "",
+            index: index
+        }
+        return newData;
+    })
+
+    let workoutElements = workoutData.map((item, index) => {
+        return (
+            <Workouts
+                title={item.title}
+                reps={item.reps}
+                sets={item.sets}
+                pWeight={item.pWeight}
+                cWeight={item.cWeight}
+                index={index}
+                key={index}
+            />
+        )
+    })
+
 
     return (
-        <div className="plan" onClick={handleClick}>
-            <p className="plan-title">{props.title}</p>
+        <div>
+            {workoutElements}
         </div>
     );
 }

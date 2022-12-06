@@ -3,8 +3,17 @@ import "../style/workout.css";
 import DesktopNotice from "../components/DesktopNotice";
 import Plan from "../components/Plan";
 import BackBtn from "../components/BackBtn";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
 
 function Workout() {
+    const [activePlan, setActivePlan] = useState("monday");
+
+    const workutSelectorEvent = (e) => {
+        // TODO: if workout is started prompt that it will be deleted to continue
+        setActivePlan(e.target.value)
+    }
     return (
         <div className="container">
             <BackBtn />
@@ -12,7 +21,7 @@ function Workout() {
             <div className="content">
                 <div className="content-mid">
                     <div className="mid-workoutSelector">
-                        <select name="workout" id="workout">
+                        <select name="workout" onChange={workutSelectorEvent}>
                             <option value="monday">Monday Chest & Tricep</option>
                             <option value="tuesday">Tuesday Back & Bicep</option>
                             <option value="thursday">Thursday Legs & Abs</option>
@@ -20,24 +29,15 @@ function Workout() {
                         </select>
                     </div>
 
+                    <div className="mid-workoutControls">
+                        <FontAwesomeIcon icon={faTrash} size="2x" color="gray" />
+                        <FontAwesomeIcon icon={faPlay} size="2x" color="gray" />
+                        <FontAwesomeIcon icon={faStop} size="2x" color="gray" />
+                    </div>
 
-
-
-
-
-
-
-
-
-                    {/* <h1>
-                        Workout
-                    </h1>
-                    <div className="mid-workouts">
-                        <Plan title="Monday - Chest & Tricep" keyUid="monday" />
-                        <Plan title="Tuesday - Back & Bicep" keyUid="tuesday" />
-                        <Plan title="Thursday - Legs & Abs" keyUid="thursday" />
-                        <Plan title="Friday - Shoulders" keyUid="friday" />
-                    </div> */}
+                    <div className="mid-plan">
+                        <Plan plan={activePlan} />
+                    </div>
                 </div>
             </div>
             <DesktopNotice />

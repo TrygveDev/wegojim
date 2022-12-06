@@ -1,5 +1,5 @@
 .plan {
-	width: 75%;
+	width: 100%;
 	height: 8vh;
 	background-color: #424549;
 	color: white;
@@ -8,7 +8,4 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-.plan-title {
-	font-size: 1.25rem;
 }
