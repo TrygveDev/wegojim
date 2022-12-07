@@ -32,7 +32,8 @@ function Workout() {
                                 >No</button>
                                 <button
                                     onClick={() => {
-                                        Cookies.remove(activePlan)
+                                        Cookies.remove(activePlan + "Temp");
+                                        // Sends into load loop
                                         window.location.reload();
                                         onClose();
                                     }}
@@ -61,14 +62,35 @@ function Workout() {
                                 >No</button>
                                 <button
                                     onClick={() => {
-                                        // let toSave = Cookies.get(activePlan)
-                                        // SAVE TO DATABASE Cookies.set(Date.now(), toSave)
+                                        let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
+                                        const toSaveObj = toSave.map((item, index) => {
+                                            let copyWeightList = JSON.parse(Cookies.get(activePlan))[index].weight
+                                            copyWeightList.push({
+                                                date: Date.now(),
+                                                weight: item.weight.length === 0 ? "0" : item.weight
+                                            })
+                                            const newData = {
+                                                reps: item.reps,
+                                                sets: item.sets,
+                                                title: item.title,
+                                                weight: copyWeightList,
+                                                time: item.time,
+                                                note: item.note,
+                                                index: item.index,
+                                                checked: false
+                                            }
+                                            return newData;
+                                        })
+                                        Cookies.set(activePlan, JSON.stringify(toSaveObj), { expires: 365 })
+                                        Cookies.remove(activePlan + "Temp")
+                                        // Sends into load loop
+                                        window.location.reload()
                                         onClose();
                                     }}
                                 >Yes</button>
                             </div>
                         </div>
-                    </div>
+                    </div >
                 );
             }
         });

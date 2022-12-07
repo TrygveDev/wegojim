@@ -195,7 +195,7 @@ function Plan(props) {
                 sets: ex[1].sets,
                 title: ex[1].title,
                 weight: [],
-                pTime: "",
+                time: "",
                 note: ex[1].note,
                 index: index,
                 checked: false
@@ -203,9 +203,12 @@ function Plan(props) {
             return newData;
         })
         Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
-    } else {
-        workoutData = JSON.parse(Cookies.get(props.plan))
     }
+    // CREATE WORKOUT TEMP
+    if (Cookies.get(props.plan + "Temp") == null) {
+        Cookies.set(props.plan + "Temp", Cookies.get(props.plan), { expires: 365 })
+    }
+    workoutData = JSON.parse(Cookies.get(props.plan + "Temp"))
 
 
     const [activeIndex, setActiveIndex] = useState(0);
@@ -215,26 +218,27 @@ function Plan(props) {
 
     function setCWeight(index, weight) {
         let weightListCopy = workoutData[index].weight
-        weightListCopy.push(weight)
+        weightListCopy = weight
         workoutData[index].weight = weightListCopy
-        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
     }
 
     function setChecked(index, boolean) {
         let workoutCopy = workoutData[index]
         workoutCopy.checked = boolean
         workoutData[index] = workoutCopy
-        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
     }
 
     let workoutElements = workoutData.map((item, index) => {
+        console.log(item)
         return (
             <Workouts
                 title={item.title}
                 reps={item.reps}
                 sets={item.sets}
-                weight={item.weight}
-                pTime={item.pTime}
+                weight={item.weight.length === 0 ? "0" : item.weight}
+                time={item.time}
                 note={item.note}
                 index={index}
                 key={index}
