@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
 import "../style/componentStyles/plan.css";
 import Workouts from "./Workouts";
@@ -27,7 +28,8 @@ function Plan(props) {
                     3: {
                         title: "Cable Tricep Extensions*",
                         sets: "3",
-                        reps: "8-12"
+                        reps: "8-12",
+                        note: "3sec negatives"
                     },
                     4: {
                         title: "Decline Bench Press",
@@ -42,7 +44,8 @@ function Plan(props) {
                     6: {
                         title: "Pushups*",
                         sets: "1",
-                        reps: "Failure"
+                        reps: "Failure",
+                        note: "3sec negatives"
                     },
                 }
 
@@ -68,12 +71,14 @@ function Plan(props) {
                     3: {
                         title: "Cable Curl*",
                         sets: "3",
-                        reps: "8-12"
+                        reps: "8-12",
+                        note: "3sec negatives"
                     },
                     4: {
                         title: "Cable Rows*",
                         sets: "3",
-                        reps: "6-10"
+                        reps: "6-10",
+                        note: "3sec negatives"
                     },
                     5: {
                         title: "Hammer Curl",
@@ -98,7 +103,8 @@ function Plan(props) {
                     1: {
                         title: "Standing Calf Raise*",
                         sets: "2",
-                        reps: "To Burn"
+                        reps: "To Burn",
+                        note: "3sec negatives"
                     },
                     2: {
                         title: "Leg Raise",
@@ -108,7 +114,8 @@ function Plan(props) {
                     3: {
                         title: "Leg Extension*",
                         sets: "2",
-                        reps: "10-12"
+                        reps: "10-12",
+                        note: "3sec negatives"
                     },
                     4: {
                         title: "Leg Curl",
@@ -123,7 +130,8 @@ function Plan(props) {
                     6: {
                         title: "Seated Calf Raise*",
                         sets: "3",
-                        reps: "10-15"
+                        reps: "10-15",
+                        note: "3sec negatives"
                     },
                     7: {
                         title: "Plank",
@@ -163,7 +171,8 @@ function Plan(props) {
                     5: {
                         title: "Dumbbell Shrugs*",
                         sets: "2",
-                        reps: "8-12"
+                        reps: "8-12",
+                        note: "3sec negatives"
                     },
                     6: {
                         title: "Dead Hang",
@@ -176,25 +185,46 @@ function Plan(props) {
         return db[uid]
     }
 
-    // CREATE WORKOUT
+    // CREATE EMPTY WORKOUT
     const plan = fetchFromDb(props.plan)
-    let workoutData = Object.entries(plan.exercises).map((ex, index) => {
-        const newData = {
-            reps: ex[1].reps,
-            sets: ex[1].sets,
-            title: ex[1].title,
-            pWeight: "10kg",
-            cWeight: "",
-            pTime: "2.1",
-            note: "3sec negatives",
-            index: index,
-        }
-        return newData;
-    })
+    let workoutData;
+    if (Cookies.get(props.plan) == null) {
+        workoutData = Object.entries(plan.exercises).map((ex, index) => {
+            const newData = {
+                reps: ex[1].reps,
+                sets: ex[1].sets,
+                title: ex[1].title,
+                weight: [],
+                pTime: "",
+                note: ex[1].note,
+                index: index,
+                checked: false
+            }
+            return newData;
+        })
+        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
+    } else {
+        workoutData = JSON.parse(Cookies.get(props.plan))
+    }
+
 
     const [activeIndex, setActiveIndex] = useState(0);
     function changeActive(index) {
         setActiveIndex(index)
+    }
+
+    function setCWeight(index, weight) {
+        let weightListCopy = workoutData[index].weight
+        weightListCopy.push(weight)
+        workoutData[index].weight = weightListCopy
+        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
+    }
+
+    function setChecked(index, boolean) {
+        let workoutCopy = workoutData[index]
+        workoutCopy.checked = boolean
+        workoutData[index] = workoutCopy
+        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
     }
 
     let workoutElements = workoutData.map((item, index) => {
@@ -203,15 +233,17 @@ function Plan(props) {
                 title={item.title}
                 reps={item.reps}
                 sets={item.sets}
-                pWeight={item.pWeight}
-                cWeight={item.cWeight}
+                weight={item.weight}
                 pTime={item.pTime}
                 note={item.note}
                 index={index}
                 key={index}
+                checked={item.checked}
                 changeActive={changeActive}
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
+                setCWeight={setCWeight}
+                setChecked={setChecked}
             />
         )
     })
