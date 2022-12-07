@@ -1,6 +1,5 @@
-import "../style/home.css";
+import "../style/routeStyles/home.css";
 import { useNavigate } from "react-router-dom";
-import DesktopNotice from "../components/DesktopNotice";
 
 function Home() {
 
@@ -19,13 +18,12 @@ function Home() {
           <div className="mid-navboxes">
             <div className="navboxes-workout" onClick={() => navigate("/workout")}>WORKOUT</div>
             <div className="navboxes-progress" onClick={() => navigate("/progress")}>PROGRESS</div>
-            <div className="navboxes-prevworkouts" onClick={() => navigate("/prevworkouts")}>PREVIOUS WORKOUTS</div>
+            <div className="navboxes-prevworkouts" onClick={() => navigate("/previousworkouts")}>PREVIOUS WORKOUTS</div>
           </div>
           <div className="mid-subtitle">"Look in the mirror that's your competition"</div>
-          <div className="mid-vernumb">v4.0</div>
+          <div className="mid-vernumb">v4.0 - BETA 7.12</div>
         </div>
       </div>
-      <DesktopNotice />
     </div>
   );
 }

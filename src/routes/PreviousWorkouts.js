@@ -1,7 +1,7 @@
-import "../style/routeStyles/progress.css";
+import "../style/routeStyles/previousworkouts.css";
 import BackBtn from "../components/BackBtn";
 
-function Progress() {
+function PreviousWorkouts() {
     return (
         <div className="container">
             <BackBtn />
@@ -13,4 +13,4 @@ function Progress() {
     );
 }
 
-export default Progress;
+export default PreviousWorkouts;

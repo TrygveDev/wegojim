@@ -35,15 +35,6 @@
 	margin-right: 5%;
 }
 
-.checked {
-	transition: all 0.5s;
-	height: 4vh;
-	text-decoration: line-through;
-	font-style: italic;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
 .checked .item-title,
 .checked .item-sets,
 .checked .item-reps {
@@ -52,32 +43,59 @@
 	text-overflow: ellipsis;
 }
 
-.active {
-	display: flex;
-}
-
 .item-stats {
-	transition: all 0.5s;
 	width: 95%;
-	height: 100%;
+	height: 90px;
 	display: flex;
 	justify-content: space-around;
-	align-items: center;
 	background-color: #42515b;
 	border-radius: 0 0 12px 12px;
 }
 .item-stats h6 {
+	padding-top: 15%;
+	height: 25%;
 	font-size: 0.9em;
-	margin: 1.5em 0 0 0;
 	font-weight: 0;
+	margin: 0;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .item-stats p {
+	height: 40%;
 	font-size: 1.2em;
-	margin: 0 0 1em 0;
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .stats-weight,
 .stats-time,
 .stats-note {
 	width: 33%;
+	height: 100%;
+}
+.stats-note p {
+	line-height: 0.85em;
+	font-size: 1.1em;
+}
+
+.active {
+	display: flex;
+}
+
+.hidden {
+	display: none;
+}
+.checked {
+	height: 4vh;
+	text-decoration: line-through;
+	font-style: italic;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

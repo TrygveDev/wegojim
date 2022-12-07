@@ -1,6 +1,4 @@
-import "../style/index.css";
-import "../style/workout.css";
-import DesktopNotice from "../components/DesktopNotice";
+import "../style/routeStyles/workout.css";
 import Plan from "../components/Plan";
 import BackBtn from "../components/BackBtn";
 import { useState } from "react";
@@ -40,7 +38,6 @@ function Workout() {
                     </div>
                 </div>
             </div>
-            <DesktopNotice />
         </div>
     );
 }

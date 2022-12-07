@@ -6,6 +6,7 @@ import "./style/index.css";
 import Home from "./routes/Home";
 import Workout from "./routes/Workout";
 import Progress from "./routes/Progress";
+import PreviousWorkouts from "./routes/PreviousWorkouts";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/progress",
     element: <Progress />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/previousworkouts",
+    element: <PreviousWorkouts />,
     errorElement: <ErrorPage />,
   }
 ]);

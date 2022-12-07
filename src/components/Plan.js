@@ -1,4 +1,5 @@
-import "../style/plan.css";
+import { useState } from "react";
+import "../style/componentStyles/plan.css";
 import Workouts from "./Workouts";
 
 function Plan(props) {
@@ -182,12 +183,19 @@ function Plan(props) {
             reps: ex[1].reps,
             sets: ex[1].sets,
             title: ex[1].title,
-            pWeight: "",
+            pWeight: "10kg",
             cWeight: "",
-            index: index
+            pTime: "2.1",
+            note: "3sec negatives",
+            index: index,
         }
         return newData;
     })
+
+    const [activeIndex, setActiveIndex] = useState(0);
+    function changeActive(index) {
+        setActiveIndex(index)
+    }
 
     let workoutElements = workoutData.map((item, index) => {
         return (
@@ -197,8 +205,13 @@ function Plan(props) {
                 sets={item.sets}
                 pWeight={item.pWeight}
                 cWeight={item.cWeight}
+                pTime={item.pTime}
+                note={item.note}
                 index={index}
                 key={index}
+                changeActive={changeActive}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
             />
         )
     })
