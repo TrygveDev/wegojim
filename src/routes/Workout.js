@@ -34,7 +34,7 @@ function Workout() {
                                     onClick={() => {
                                         Cookies.remove(activePlan + "Temp");
                                         // Sends into load loop
-                                        window.location.reload();
+                                        window.location.reload(false)
                                         onClose();
                                     }}
                                 >Yes</button>
@@ -67,7 +67,7 @@ function Workout() {
                                             let copyWeightList = JSON.parse(Cookies.get(activePlan))[index].weight
                                             copyWeightList.push({
                                                 date: Date.now(),
-                                                weight: item.weight.length === 0 ? "0" : item.weight
+                                                weight: item.weight.length === 0 ? "0" : item.weight[index].weight === undefined ? item.weight : item.weight[index].weight
                                             })
                                             const newData = {
                                                 reps: item.reps,
@@ -84,7 +84,7 @@ function Workout() {
                                         Cookies.set(activePlan, JSON.stringify(toSaveObj), { expires: 365 })
                                         Cookies.remove(activePlan + "Temp")
                                         // Sends into load loop
-                                        window.location.reload()
+                                        window.location.reload(false)
                                         onClose();
                                     }}
                                 >Yes</button>

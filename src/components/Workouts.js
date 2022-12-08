@@ -10,7 +10,6 @@ function Workouts(props) {
     function click() {
         if (checked) {
             // If workout checked uncheck
-            // TODO: Modal confirm
             confirmAlert({
                 customUI: ({ onClose }) => {
                     return (
@@ -39,7 +38,6 @@ function Workouts(props) {
         } else if (!checked) {
             if (props.activeIndex === props.index) {
                 // If not checked but workout is active set unactive and set checked
-                // TODO: Modal input
                 confirmAlert({
                     customUI: ({ onClose }) => {
                         return (
@@ -77,8 +75,17 @@ function Workouts(props) {
 
     }
 
-    // TODO: Dekan
-    const weight = props.weight[props.weight.length - 1].weight
+    // TODO: getWeight
+    function getWeight() {
+        let weight;
+        console.log(props.weight)
+        if (props.weight[props.weight.length - 1].weight == null) {
+            weight = 0;
+        } else {
+            weight = props.weight[props.weight.length - 1].weight
+        }
+        return weight
+    }
 
     return (
         <div className={`workout-item${checked ? " checked" : ""}${props.activeIndex === props.index ? " active" : ""}`} onClick={click}>
@@ -90,7 +97,7 @@ function Workouts(props) {
             <div className={props.activeIndex === props.index ? "item-stats active" : "item-stats hidden"}>
                 <div className="stats-weight">
                     <h6>Prev Weight</h6>
-                    <p>{weight + "kg"}</p>
+                    <p>{getWeight() + "kg"}</p>
                 </div>
                 <div className="stats-time">
                     <h6>Prev Time</h6>

@@ -21,7 +21,7 @@ function Home() {
             <div className="navboxes-prevworkouts" onClick={() => navigate("/previousworkouts")}>PREVIOUS WORKOUTS</div>
           </div>
           <div className="mid-subtitle">"Look in the mirror that's your competition"</div>
-          <div className="mid-vernumb">v4.0 - BETA 7.12</div>
+          <div className="mid-vernumb">v4.0 - BETA 8.12</div>
         </div>
       </div>
     </div>
