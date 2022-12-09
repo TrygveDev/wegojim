@@ -216,11 +216,15 @@ function Plan(props) {
         setActiveIndex(index)
     }
 
-    function setCWeight(index, weight) {
-        let weightListCopy = workoutData[index].weight
-        weightListCopy = weight
-        workoutData[index].weight = weightListCopy
+    function setWeight(index, weight) {
+        let copyWeightList = workoutData[index].weight
+        copyWeightList.push({
+            date: Date.now(),
+            weight: weight
+        })
+        workoutData[index].weight = copyWeightList
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+
     }
 
     function setChecked(index, boolean) {
@@ -229,9 +233,14 @@ function Plan(props) {
         workoutData[index] = workoutCopy
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
     }
+    function removeWeight(index) {
+        let workoutCopy = workoutData[index]
+        workoutCopy.weight.pop()
+        workoutData[index] = workoutCopy
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+    }
 
     let workoutElements = workoutData.map((item, index) => {
-        console.log(item)
         return (
             <Workouts
                 title={item.title}
@@ -246,8 +255,9 @@ function Plan(props) {
                 changeActive={changeActive}
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
-                setCWeight={setCWeight}
+                setWeight={setWeight}
                 setChecked={setChecked}
+                removeWeight={removeWeight}
             />
         )
     })

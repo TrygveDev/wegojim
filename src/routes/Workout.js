@@ -1,4 +1,6 @@
 import "../style/routeStyles/workout.css";
+import "../style/inputModal.css";
+import "../style/confirmModal.css";
 import Plan from "../components/Plan";
 import BackBtn from "../components/BackBtn";
 import { useState } from "react";
@@ -7,24 +9,24 @@ import { faTrash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Workout() {
+    const navigate = useNavigate();
+    const refreshPage = () => {
+        navigate(0);
+    }
     const [activePlan, setActivePlan] = useState("monday");
-
     const workutSelectorEvent = (e) => {
         // TODO: if workout is started prompt that it will be deleted to continue
-        setActivePlan(e.target.value)
-    }
-
-    function trashClick() {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className='workouts-modalContainer'>
-                        <div className='modalContainer-content'>
-                            <h1>Do you want to clear your workout?</h1>
-                            <p>Everything will be deleted, this cannot be undone.</p>
-                            <div className='customui-buttons'>
+                    <div className='confirmModalContainer'>
+                        <div className='confirmModalContainer-content'>
+                            <h1>Do you want to switch workout?</h1>
+                            <p>Exercises logged will be deleted, this cannot be undone.</p>
+                            <div className='confirmModal-buttons'>
                                 <button
                                     onClick={() => {
                                         onClose();
@@ -33,8 +35,36 @@ function Workout() {
                                 <button
                                     onClick={() => {
                                         Cookies.remove(activePlan + "Temp");
-                                        // Sends into load loop
-                                        window.location.reload(false)
+                                        setActivePlan(e.target.value)
+                                        onClose();
+                                    }}
+                                >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
+    }
+
+    function trashClick() {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='confirmModalContainer'>
+                        <div className='confirmModalContainer-content'>
+                            <h1>Do you want to clear your workout?</h1>
+                            <p>Everything will be deleted, this cannot be undone.</p>
+                            <div className='confirmModal-buttons'>
+                                <button
+                                    onClick={() => {
+                                        onClose();
+                                    }}
+                                >No</button>
+                                <button
+                                    onClick={() => {
+                                        Cookies.remove(activePlan + "Temp");
+                                        refreshPage()
                                         onClose();
                                     }}
                                 >Yes</button>
@@ -50,11 +80,11 @@ function Workout() {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className='workouts-modalContainer'>
-                        <div className='modalContainer-content'>
+                    <div className='confirmModalContainer'>
+                        <div className='confirmModalContainer-content'>
                             <h1>Do you want to save and complete your workout?</h1>
                             <p>Everything will be saved and can be viewed in progress.</p>
-                            <div className='customui-buttons'>
+                            <div className='confirmModal-buttons'>
                                 <button
                                     onClick={() => {
                                         onClose();
@@ -63,17 +93,16 @@ function Workout() {
                                 <button
                                     onClick={() => {
                                         let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
-                                        const toSaveObj = toSave.map((item, index) => {
-                                            let copyWeightList = JSON.parse(Cookies.get(activePlan))[index].weight
-                                            copyWeightList.push({
-                                                date: Date.now(),
-                                                weight: item.weight.length === 0 ? "0" : item.weight[index].weight === undefined ? item.weight : item.weight[index].weight
-                                            })
+                                        const emptyWeight = {
+                                            date: Date.now(),
+                                            weight: "0"
+                                        }
+                                        const toSaveObj = toSave.map((item) => {
                                             const newData = {
                                                 reps: item.reps,
                                                 sets: item.sets,
                                                 title: item.title,
-                                                weight: copyWeightList,
+                                                weight: item.weight.length === 0 ? item.weight.push(emptyWeight) : item.weight,
                                                 time: item.time,
                                                 note: item.note,
                                                 index: item.index,
@@ -82,9 +111,30 @@ function Workout() {
                                             return newData;
                                         })
                                         Cookies.set(activePlan, JSON.stringify(toSaveObj), { expires: 365 })
+
+                                        const toSaveObjProgress = toSave.map((item) => {
+                                            const newData = {
+                                                title: item.title,
+                                                weight: item.weight.length === 0 ? emptyWeight : item.weight[item.weight.length - 1],
+                                            }
+                                            return newData;
+                                        })
+                                        const newWorkoutToSave = {
+                                            date: Date.now(),
+                                            workout: activePlan,
+                                            data: {
+                                                ...toSaveObjProgress
+                                            }
+                                        }
+                                        if (Cookies.get("previousWorkouts") === undefined) {
+                                            Cookies.set("previousWorkouts", JSON.stringify([newWorkoutToSave]), { expires: 365 })
+                                        } else {
+                                            let previousWorkoutsCopy = JSON.parse(Cookies.get("previousWorkouts"))
+                                            previousWorkoutsCopy.push(newWorkoutToSave)
+                                            Cookies.set("previousWorkouts", JSON.stringify(previousWorkoutsCopy), { expires: 365 })
+                                        }
                                         Cookies.remove(activePlan + "Temp")
-                                        // Sends into load loop
-                                        window.location.reload(false)
+                                        refreshPage()
                                         onClose();
                                     }}
                                 >Yes</button>

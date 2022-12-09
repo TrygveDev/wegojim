@@ -13,17 +13,18 @@ function Workouts(props) {
             confirmAlert({
                 customUI: ({ onClose }) => {
                     return (
-                        <div className='workouts-modalContainer'>
-                            <div className='modalContainer-content'>
+                        <div className='confirmModalContainer'>
+                            <div className='confirmModalContainer-content'>
                                 <h1>Do you want to undo the workout?</h1>
                                 <p>This will remove your saved weight and cannot be undone.</p>
-                                <div className='customui-buttons'>
+                                <div className='confirmModal-buttons'>
                                     <button onClick={() => {
                                         onClose();
                                     }}>No</button>
                                     <button
                                         onClick={() => {
                                             setChecked(false)
+                                            props.removeWeight(props.index)
                                             props.setChecked(props.index, false)
                                             props.changeActive(props.index)
                                             onClose();
@@ -41,12 +42,12 @@ function Workouts(props) {
                 confirmAlert({
                     customUI: ({ onClose }) => {
                         return (
-                            <div className='workouts-modalContainer'>
-                                <div className='modalContainer-content'>
+                            <div className='inputModalContainer'>
+                                <div className='inputModalContainer-content'>
                                     <h1>What weight did you use?</h1>
                                     <p>If you used multiple weights take the one you were most comfortable with.</p>
-                                    <input ref={weightInput} type="number" placeholder={props.weight === null ? props.weight[props.weight.length] : "0"}></input>
-                                    <div className='customui-buttons'>
+                                    <input ref={weightInput} autoFocus type="number" placeholder={props.weight === null ? props.weight[props.weight.length] : "0"}></input>
+                                    <div className='inputModal-buttons'>
                                         <button onClick={() => {
                                             setChecked(true)
                                             props.setActiveIndex(props.index + 1)
@@ -56,7 +57,7 @@ function Workouts(props) {
                                             onClick={() => {
                                                 setChecked(true)
                                                 props.setActiveIndex(props.index + 1)
-                                                props.setCWeight(props.index, weightInput.current.value)
+                                                props.setWeight(props.index, weightInput.current.value)
                                                 props.setChecked(props.index, true)
                                                 onClose();
                                             }}
@@ -78,8 +79,7 @@ function Workouts(props) {
     // TODO: getWeight
     function getWeight() {
         let weight;
-        console.log(props.weight)
-        if (props.weight[props.weight.length - 1].weight == null) {
+        if (props.weight[props.weight.length - 1].weight == null || props.weight[props.weight.length - 1].weight === undefined) {
             weight = 0;
         } else {
             weight = props.weight[props.weight.length - 1].weight

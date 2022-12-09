@@ -1,0 +1,52 @@
+.confirmModalContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+.confirmModalContainer-content {
+	width: 90%;
+	height: 250px;
+	border-radius: 12px;
+	background-color: #2b3135;
+	color: white;
+	padding: 1em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.confirmModalContainer-content h1 {
+	margin: 0;
+}
+.confirmModalContainer-content p {
+	margin: 0;
+	margin-bottom: 1em;
+}
+
+.confirmModal-buttons {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.confirmModal-buttons button {
+	width: 35%;
+	height: 50px;
+	border-radius: 12px;
+	border: 0;
+	font-size: 1.3em;
+	color: white;
+}
+.confirmModal-buttons button:nth-child(1) {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+.confirmModal-buttons button:nth-child(2) {
+	background-color: rgba(153, 205, 50, 0.5);
+}

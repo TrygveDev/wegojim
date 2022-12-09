@@ -1,0 +1,63 @@
+.inputModalContainer {
+	display: flex;
+	margin-top: 30vh;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+.inputModalContainer-content {
+	width: 90%;
+	height: 250px;
+	border-radius: 12px;
+	background-color: #2b3135;
+	color: white;
+	padding: 1em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.inputModalContainer-content h1 {
+	margin: 0;
+}
+.inputModalContainer-content p {
+	margin: 0;
+}
+.inputModalContainer-content input {
+	width: 40%;
+	height: 60px;
+	border-radius: 12px;
+	stroke: 0;
+	border: 0;
+	text-align: center;
+	font-size: 3em;
+	margin: 0.3em 0 0.3em 0;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: white;
+}
+
+.inputModal-buttons {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.inputModal-buttons button {
+	width: 35%;
+	height: 50px;
+	border-radius: 12px;
+	border: 0;
+	font-size: 1.3em;
+	color: white;
+}
+.inputModal-buttons button:nth-child(1) {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+.inputModal-buttons button:nth-child(2) {
+	background-color: rgba(153, 205, 50, 0.5);
+}
