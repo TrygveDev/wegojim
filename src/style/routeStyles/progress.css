@@ -5,3 +5,6 @@ h6 {
 .content-mid {
 	overflow-y: scroll;
 }
+.chart {
+	color: white;
+}
