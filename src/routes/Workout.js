@@ -17,7 +17,7 @@ function Workout() {
         navigate(0);
     }
     const [activePlan, setActivePlan] = useState("monday");
-    const workutSelectorEvent = (e) => {
+    const workoutSelectorEvent = (e) => {
         // TODO: if workout is started prompt that it will be deleted to continue
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -29,6 +29,7 @@ function Workout() {
                             <div className='confirmModal-buttons'>
                                 <button
                                     onClick={() => {
+                                        e.target.value = activePlan;
                                         onClose();
                                     }}
                                 >No</button>
@@ -153,7 +154,7 @@ function Workout() {
             <div className="content">
                 <div className="content-mid">
                     <div className="mid-workoutSelector">
-                        <select name="workout" onChange={workutSelectorEvent}>
+                        <select name="workout" onChange={workoutSelectorEvent}>
                             <option value="monday">Monday Chest & Tricep</option>
                             <option value="tuesday">Tuesday Back & Bicep</option>
                             <option value="thursday">Thursday Legs & Abs</option>

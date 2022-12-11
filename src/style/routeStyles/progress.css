@@ -3,8 +3,20 @@ h6 {
 	font-style: italic;
 }
 .content-mid {
+	color: white;
+}
+.progressSelector {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.chartList {
+	width: 80%;
 	overflow-y: scroll;
+	padding-bottom: 10em;
 }
 .chart {
+	width: 100%;
 	color: white;
 }

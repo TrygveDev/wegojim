@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 import { useState } from "react";
 import "../style/componentStyles/plan.css";
 import Workouts from "./Workouts";
@@ -184,7 +185,9 @@ function Plan(props) {
         }
         return db[uid]
     }
-
+    useEffect(() => {
+        setActiveIndex(0)
+    }, [props.plan])
     // CREATE EMPTY WORKOUT
     const plan = fetchFromDb(props.plan)
     let workoutData;

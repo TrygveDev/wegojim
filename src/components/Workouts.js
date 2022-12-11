@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../style/componentStyles/workouts.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -7,6 +7,9 @@ import { useRef } from "react";
 function Workouts(props) {
     const [checked, setChecked] = useState(props.checked);
     const weightInput = useRef(null);
+    useEffect(() => {
+        setChecked(props.checked)
+    }, [props.checked])
     function click() {
         if (checked) {
             // If workout checked uncheck
@@ -46,10 +49,11 @@ function Workouts(props) {
                                 <div className='inputModalContainer-content'>
                                     <h1>What weight did you use?</h1>
                                     <p>If you used multiple weights take the one you were most comfortable with.</p>
-                                    <input ref={weightInput} autoFocus type="number" placeholder={props.weight === null ? props.weight[props.weight.length] : "0"}></input>
+                                    <input ref={weightInput} autoFocus type="number" placeholder={props.weight === 0 ? "0" : props.weight[props.weight.length - 1].weight} defaultValue={props.weight === 0 ? "" : props.weight[props.weight.length - 1].weight}></input>
                                     <div className='inputModal-buttons'>
                                         <button onClick={() => {
                                             setChecked(true)
+                                            props.setWeight(props.index, "0")
                                             props.setActiveIndex(props.index + 1)
                                             onClose();
                                         }}>Don't Track</button>
@@ -79,14 +83,13 @@ function Workouts(props) {
     // TODO: getWeight
     function getWeight() {
         let weight;
-        if (props.weight[props.weight.length - 1].weight == null || props.weight[props.weight.length - 1].weight === undefined) {
+        if (!Array.isArray(props.weight)) {
             weight = 0;
         } else {
             weight = props.weight[props.weight.length - 1].weight
         }
         return weight
     }
-
     return (
         <div className={`workout-item${checked ? " checked" : ""}${props.activeIndex === props.index ? " active" : ""}`} onClick={click}>
             <div className={"item-list"}>
