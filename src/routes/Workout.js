@@ -9,12 +9,14 @@ import { faTrash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 function Workout() {
-    const navigate = useNavigate();
+    const [refreshing, setRefreshing] = useState(false);
     const refreshPage = () => {
-        navigate(0);
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 100);
     }
     const [activePlan, setActivePlan] = useState("monday");
     const workoutSelectorEvent = (e) => {
@@ -93,6 +95,8 @@ function Workout() {
                                 >No</button>
                                 <button
                                     onClick={() => {
+
+                                        // Save to workout (not temp)
                                         let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
                                         const emptyWeight = {
                                             date: Date.now(),
@@ -113,6 +117,7 @@ function Workout() {
                                         })
                                         Cookies.set(activePlan, JSON.stringify(toSaveObj), { expires: 365 })
 
+                                        // Save to previous workouts
                                         const toSaveObjProgress = toSave.map((item) => {
                                             const newData = {
                                                 title: item.title,
@@ -134,6 +139,8 @@ function Workout() {
                                             previousWorkoutsCopy.push(newWorkoutToSave)
                                             Cookies.set("previousWorkouts", JSON.stringify(previousWorkoutsCopy), { expires: 365 })
                                         }
+
+                                        // Delete temp
                                         Cookies.remove(activePlan + "Temp")
                                         refreshPage()
                                         onClose();
@@ -168,7 +175,7 @@ function Workout() {
                     </div>
 
                     <div className="mid-plan">
-                        <Plan plan={activePlan} />
+                        <Plan plan={activePlan} refreshing={refreshing} />
                     </div>
                 </div>
             </div>

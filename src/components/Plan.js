@@ -187,7 +187,7 @@ function Plan(props) {
     }
     useEffect(() => {
         setActiveIndex(0)
-    }, [props.plan])
+    }, [props.plan, props.refreshing])
     // CREATE EMPTY WORKOUT
     const plan = fetchFromDb(props.plan)
     let workoutData;

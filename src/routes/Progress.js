@@ -39,8 +39,7 @@ const options = {
 
 function Progress() {
     const workoutSelector = useRef(null);
-    const [activeWorkout, setActiveWorkout] = useState();
-    console.log(activeWorkout)
+    const [activeWorkout, setActiveWorkout] = useState("monday");
     const workoutSelectorEvent = (e) => {
         setActiveWorkout(e.target.value)
     }
@@ -60,16 +59,19 @@ function Progress() {
         );
     } else {
         const cookieData = JSON.parse(Cookies.get("previousWorkouts"));
+
+        // Filter out workouts that is not equal to active workout
+        const activeWorkoutData = cookieData.filter(item => item.workout === activeWorkout)
+
         // Get all weights
-        cookieData.filter((item) => item.workout === activeWorkout)
-        const weightValues = cookieData.map((item) => {
+        const weightValues = activeWorkoutData.map((item) => {
             return Object.values(item.data).map((dataItem) => {
                 return dataItem.weight.weight;
             });
         });
-        if (cookieData != null) {
+        if (activeWorkoutData != null) {
             // Get all exercise names
-            const exerciseNames = Object.values(cookieData).map((item) => {
+            const exerciseNames = Object.values(activeWorkoutData).map((item) => {
                 return Object.values(item.data).map((dataItem) => {
                     return dataItem.title;
                 });
@@ -82,7 +84,7 @@ function Progress() {
                 }, []);
             });
             //Get all dates
-            const dateValues = cookieData.map((item) => {
+            const dateValues = activeWorkoutData.map((item) => {
                 return Object.values(item.data).map((dataItem) => {
                     return new Date(dataItem.weight.date).getDate() + "/" + parseInt(new Date(dataItem.weight.date).getMonth() + 1);
                 });
