@@ -1,5 +1,6 @@
 import "../style/routeStyles/home.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Home() {
 
@@ -17,7 +18,7 @@ function Home() {
             <div className="navboxes-prevworkouts" onClick={() => nav("/previousworkouts")}>PREVIOUS WORKOUTS</div>
           </div>
           <div className="mid-subtitle">"Look in the mirror that's your competition"</div>
-          <div className="mid-vernumb">v4.0 - BETA 12.12</div>
+          <div className="mid-vernumb">v4.0 - BETA 13.12</div>
         </div>
       </div>
     </div>

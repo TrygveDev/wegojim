@@ -7,6 +7,7 @@ import Home from "./routes/Home";
 import Workout from "./routes/Workout";
 import Progress from "./routes/Progress";
 import PreviousWorkouts from "./routes/PreviousWorkouts";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const router = createBrowserRouter([
   {
@@ -36,3 +37,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
