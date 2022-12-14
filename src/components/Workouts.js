@@ -52,11 +52,8 @@ function Workouts(props) {
                                     <input ref={weightInput} autoFocus type="number" placeholder={props.weight === 0 ? "0" : props.weight[props.weight.length - 1].weight} defaultValue={props.weight === 0 ? "" : props.weight[props.weight.length - 1].weight}></input>
                                     <div className='inputModal-buttons'>
                                         <button onClick={() => {
-                                            setChecked(true)
-                                            props.setWeight(props.index, "0")
-                                            props.setActiveIndex(props.index + 1)
                                             onClose();
-                                        }}>Don't Track</button>
+                                        }}>Back</button>
                                         <button
                                             onClick={() => {
                                                 setChecked(true)
@@ -65,7 +62,7 @@ function Workouts(props) {
                                                 props.setChecked(props.index, true)
                                                 onClose();
                                             }}
-                                        >Ok</button>
+                                        >Track</button>
                                     </div>
                                 </div>
                             </div>
