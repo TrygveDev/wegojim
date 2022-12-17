@@ -1,6 +1,5 @@
 import "../style/routeStyles/home.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function Home() {
 
