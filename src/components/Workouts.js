@@ -76,17 +76,6 @@ function Workouts(props) {
         }
 
     }
-
-    // TODO: getWeight
-    function getWeight() {
-        let weight;
-        if (!Array.isArray(props.weight)) {
-            weight = 0;
-        } else {
-            weight = props.weight[props.weight.length - 1].weight
-        }
-        return weight
-    }
     return (
         <div className={`workout-item${checked ? " checked" : ""}${props.activeIndex === props.index ? " active" : ""}`} onClick={click}>
             <div className={"item-list"}>
@@ -97,7 +86,7 @@ function Workouts(props) {
             <div className={props.activeIndex === props.index ? "item-stats active" : "item-stats hidden"}>
                 <div className="stats-weight">
                     <h6>Prev Weight</h6>
-                    <p>{getWeight() + "kg"}</p>
+                    <p>{props.weight + "kg"}</p>
                 </div>
                 <div className="stats-time">
                     <h6>Prev Time</h6>

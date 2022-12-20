@@ -20,7 +20,6 @@ function Workout() {
     }
     const [activePlan, setActivePlan] = useState("monday");
     const workoutSelectorEvent = (e) => {
-        // TODO: if workout is started prompt that it will be deleted to continue
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -96,48 +95,29 @@ function Workout() {
                                 <button
                                     onClick={() => {
 
-                                        // Save to workout (not temp)
-                                        let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
-                                        const emptyWeight = {
-                                            date: Date.now(),
-                                            weight: "0"
-                                        }
-                                        const toSaveObj = toSave.map((item) => {
-                                            const newData = {
-                                                reps: item.reps,
-                                                sets: item.sets,
-                                                title: item.title,
-                                                weight: item.weight.length === 0 ? item.weight.push(emptyWeight) : item.weight,
-                                                time: item.time,
-                                                note: item.note,
-                                                index: item.index,
-                                                checked: false
-                                            }
-                                            return newData;
-                                        })
-                                        Cookies.set(activePlan, JSON.stringify(toSaveObj), { expires: 365 })
-
                                         // Save to previous workouts
-                                        const toSaveObjProgress = toSave.map((item) => {
+                                        let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
+                                        const progressData = toSave.map((item) => {
                                             const newData = {
                                                 title: item.title,
-                                                weight: item.weight.length === 0 ? emptyWeight : item.weight[item.weight.length - 1],
+                                                weight: item.weight // TODO: If weight is empty, set to last used from progress
                                             }
                                             return newData;
                                         })
-                                        const newWorkoutToSave = {
+                                        const progressObj = {
                                             date: Date.now(),
                                             workout: activePlan,
                                             data: {
-                                                ...toSaveObjProgress
+                                                ...progressData
                                             }
                                         }
+
                                         if (Cookies.get("previousWorkouts") === undefined) {
-                                            Cookies.set("previousWorkouts", JSON.stringify([newWorkoutToSave]), { expires: 365 })
+                                            Cookies.set("previousWorkouts", JSON.stringify([progressObj]), { expires: 365 })
                                         } else {
-                                            let previousWorkoutsCopy = JSON.parse(Cookies.get("previousWorkouts"))
-                                            previousWorkoutsCopy.push(newWorkoutToSave)
-                                            Cookies.set("previousWorkouts", JSON.stringify(previousWorkoutsCopy), { expires: 365 })
+                                            let previousWorkouts = JSON.parse(Cookies.get("previousWorkouts"))
+                                            previousWorkouts.push(progressObj)
+                                            Cookies.set("previousWorkouts", JSON.stringify(previousWorkouts), { expires: 365 })
                                         }
 
                                         // Delete temp

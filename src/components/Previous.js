@@ -16,7 +16,7 @@ function Previous(props) {
                     {Object.entries(props.item.data).map(([key, value]) => {
                         return (
                             <li key={key}>
-                                <p className="previous-workout-stats-title">{value.weight.weight}kg - {value.title}</p>
+                                <p className="previous-workout-stats-title">{value.weight}kg - {value.title}</p>
                             </li>
                         );
                     })}

@@ -5,7 +5,6 @@ import "../style/componentStyles/plan.css";
 import Workouts from "./Workouts";
 
 function Plan(props) {
-
     function fetchFromDb(uid) {
         const db = {
             monday: {
@@ -185,34 +184,38 @@ function Plan(props) {
         }
         return db[uid]
     }
+
+    // Sets the active workout (visually) when the plan changes
     useEffect(() => {
         setActiveIndex(0)
     }, [props.plan, props.refreshing])
-    // CREATE EMPTY WORKOUT
     const plan = fetchFromDb(props.plan)
-    let workoutData;
-    if (Cookies.get(props.plan) == null) {
-        workoutData = Object.entries(plan.exercises).map((ex, index) => {
-            const newData = {
-                reps: ex[1].reps,
-                sets: ex[1].sets,
-                title: ex[1].title,
-                weight: [],
-                time: "",
-                note: ex[1].note,
-                index: index,
-                checked: false
-            }
-            return newData;
-        })
-        Cookies.set(props.plan, JSON.stringify(workoutData), { expires: 365 })
-    }
-    // CREATE WORKOUT TEMP
-    if (Cookies.get(props.plan + "Temp") == null) {
-        Cookies.set(props.plan + "Temp", Cookies.get(props.plan), { expires: 365 })
-    }
-    workoutData = JSON.parse(Cookies.get(props.plan + "Temp"))
 
+    function getPreviousWeight(plan, workout) {
+        if (Cookies.get("previousWorkouts") === undefined) {
+            return "0";
+        } else {
+            let cookie = JSON.parse(Cookies.get("previousWorkouts"));
+            cookie = cookie.filter((item) => item.workout === plan);
+            cookie = cookie.sort((a, b) => a.date - b.date);
+            cookie = cookie[cookie.length - 1];
+            cookie = Object.values(cookie.data).find(item => item.title === workout);
+            return cookie.weight === "" ? "0" : cookie.weight;
+        }
+    }
+    const workoutData = Object.entries(plan.exercises).map((ex, index) => {
+        const newData = {
+            reps: ex[1].reps,
+            sets: ex[1].sets,
+            title: ex[1].title,
+            weight: getPreviousWeight(props.plan, ex[1].title),
+            time: "",
+            note: ex[1].note,
+            index: index,
+            checked: false
+        }
+        return newData;
+    })
 
     const [activeIndex, setActiveIndex] = useState(0);
     function changeActive(index) {
@@ -220,14 +223,8 @@ function Plan(props) {
     }
 
     function setWeight(index, weight) {
-        let copyWeightList = workoutData[index].weight
-        copyWeightList.push({
-            date: Date.now(),
-            weight: weight
-        })
-        workoutData[index].weight = copyWeightList
+        workoutData[index].weight = weight === null ? "0" : weight
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
-
     }
 
     function setChecked(index, boolean) {
@@ -237,9 +234,8 @@ function Plan(props) {
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
     }
     function removeWeight(index) {
-        let workoutCopy = workoutData[index]
-        workoutCopy.weight.pop()
-        workoutData[index] = workoutCopy
+        // TODO: Set weight to progress cookie last used weight if exists or 0
+        workoutData[index].weight = "0";
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
     }
 
@@ -249,7 +245,7 @@ function Plan(props) {
                 title={item.title}
                 reps={item.reps}
                 sets={item.sets}
-                weight={item.weight.length === 0 ? "0" : item.weight}
+                weight={item.weight}
                 time={item.time}
                 note={item.note}
                 index={index}
