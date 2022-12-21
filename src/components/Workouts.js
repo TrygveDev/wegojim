@@ -49,7 +49,7 @@ function Workouts(props) {
                                 <div className='inputModalContainer-content'>
                                     <h1>What weight did you use?</h1>
                                     <p>If you used multiple weights take the one you were most comfortable with.</p>
-                                    <input ref={weightInput} autoFocus type="number" placeholder={props.weight === 0 ? "0" : props.weight[props.weight.length - 1].weight} defaultValue={props.weight === 0 ? "" : props.weight[props.weight.length - 1].weight}></input>
+                                    <input ref={weightInput} autoFocus type="number" placeholder={props.weight} defaultValue={props.weight === "0" ? "" : props.weight}></input>
                                     <div className='inputModal-buttons'>
                                         <button onClick={() => {
                                             onClose();

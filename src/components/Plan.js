@@ -203,6 +203,16 @@ function Plan(props) {
             return cookie.weight === "" ? "0" : cookie.weight;
         }
     }
+
+    function getWorkoutData(plan) {
+        if (Cookies.get(plan + "Temp") === undefined) {
+            Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+            return JSON.parse(Cookies.get(plan + "Temp"));
+        } else {
+            return JSON.parse(Cookies.get(plan + "Temp"));
+        }
+    }
+
     const workoutData = Object.entries(plan.exercises).map((ex, index) => {
         const newData = {
             reps: ex[1].reps,
@@ -217,26 +227,30 @@ function Plan(props) {
         return newData;
     })
 
+
     const [activeIndex, setActiveIndex] = useState(0);
     function changeActive(index) {
         setActiveIndex(index)
     }
 
     function setWeight(index, weight) {
-        workoutData[index].weight = weight === null ? "0" : weight
-        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+        let workoutDataCopy = getWorkoutData(props.plan)
+        console.log(getWorkoutData(props.plan))
+        workoutDataCopy[index].weight = weight === null ? "0" : weight
+        console.log(JSON.stringify(workoutDataCopy))
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutDataCopy), { expires: 365 })
     }
 
     function setChecked(index, boolean) {
-        let workoutCopy = workoutData[index]
-        workoutCopy.checked = boolean
-        workoutData[index] = workoutCopy
-        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+        let workoutDataCopy = getWorkoutData(props.plan)
+        workoutDataCopy[index].checked = boolean
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutDataCopy), { expires: 365 })
     }
     function removeWeight(index) {
         // TODO: Set weight to progress cookie last used weight if exists or 0
-        workoutData[index].weight = "0";
-        Cookies.set(props.plan + "Temp", JSON.stringify(workoutData), { expires: 365 })
+        let workoutDataCopy = getWorkoutData(props.plan)
+        workoutDataCopy[index].weight = "0";
+        Cookies.set(props.plan + "Temp", JSON.stringify(workoutDataCopy), { expires: 365 })
     }
 
     let workoutElements = workoutData.map((item, index) => {
