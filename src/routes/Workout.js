@@ -94,14 +94,15 @@ function Workout() {
                                 >No</button>
                                 <button
                                     onClick={() => {
-
                                         // Save to previous workouts
+                                        if (!Cookies.get(activePlan + "Temp")) return;
                                         let toSave = JSON.parse(Cookies.get(activePlan + "Temp"))
                                         const progressData = toSave.map((item) => {
                                             const newData = {
                                                 title: item.title,
-                                                weight: item.weight // TODO: If weight is empty, set to last used from progress
+                                                weight: item.weight === "" ? "0" : item.weight // TODO: If weight is empty, set to last used from progress
                                             }
+
                                             return newData;
                                         })
                                         const progressObj = {

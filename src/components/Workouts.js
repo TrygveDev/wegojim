@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../style/componentStyles/workouts.css";
+import styles from "../style/componentStyles/workouts.module.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useRef } from "react";
@@ -77,22 +77,22 @@ function Workouts(props) {
 
     }
     return (
-        <div className={`workout-item${checked ? " checked" : ""}${props.activeIndex === props.index ? " active" : ""}`} onClick={click}>
-            <div className={"item-list"}>
-                <div className="item-title">{props.title}</div>
-                <div className="item-sets">{props.sets}</div>
-                <div className="item-reps">{props.reps}</div>
+        <div className={`${styles.workoutItem} ${checked ? styles.checked : ""} ${props.activeIndex === props.index ? styles.active : ""}`} onClick={click}>
+            <div className={styles.itemList}>
+                <div className={styles.itemTitle}>{props.title}</div>
+                <div className={styles.itemSets}>{props.sets}</div>
+                <div className={styles.itemReps}>{props.reps}</div>
             </div>
-            <div className={props.activeIndex === props.index ? "item-stats active" : "item-stats hidden"}>
-                <div className="stats-weight">
+            <div className={props.activeIndex === props.index ? `${styles.itemStats} ${styles.active}` : `${styles.itemStats} ${styles.hidden}`}>
+                <div className={styles.statsWeight}>
                     <h6>Prev Weight</h6>
                     <p>{props.weight + "kg"}</p>
                 </div>
-                <div className="stats-time">
+                <div className={styles.statsTime}>
                     <h6>Prev Time</h6>
                     <p>{props.time !== "" ? props.time + "min" : ""}</p>
                 </div>
-                <div className="stats-note">
+                <div className={styles.statsNote}>
                     <h6>Note</h6>
                     <p>{props.note}</p>
                 </div>

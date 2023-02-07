@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useState } from "react";
-import "../style/componentStyles/plan.css";
 import Workouts from "./Workouts";
 
 function Plan(props) {
@@ -197,8 +196,10 @@ function Plan(props) {
         } else {
             let cookie = JSON.parse(Cookies.get("previousWorkouts"));
             cookie = cookie.filter((item) => item.workout === plan);
+
             cookie = cookie.sort((a, b) => a.date - b.date);
             cookie = cookie[cookie.length - 1];
+            if (!cookie) return "0";
             cookie = Object.values(cookie.data).find(item => item.title === workout);
             return cookie.weight === "" ? "0" : cookie.weight;
         }
@@ -235,9 +236,7 @@ function Plan(props) {
 
     function setWeight(index, weight) {
         let workoutDataCopy = getWorkoutData(props.plan)
-        console.log(getWorkoutData(props.plan))
         workoutDataCopy[index].weight = weight === null ? "0" : weight
-        console.log(JSON.stringify(workoutDataCopy))
         Cookies.set(props.plan + "Temp", JSON.stringify(workoutDataCopy), { expires: 365 })
     }
 
